@@ -61,7 +61,7 @@ for text in ['id="importBtn"', 'id="addChartBtn"', 'form.reset();document.getEle
 assert "accept=\".csv,text/csv\"" in page
 assert '既存データは残ります' in page
 assert 'new FileReader()' in page
-assert 'const importedCount=0' in page
+assert 'let importedCount=0' in page
 assert 'products.push(...imported);importedCount=imported.length' in page
 assert '正の値がないため円グラフを表示できません' in page
 assert 'function renderTrends()' in page
