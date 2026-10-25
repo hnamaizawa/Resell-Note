@@ -51,6 +51,11 @@ assert '商品を編集' in page
 assert 'quantity' in page
 assert 'storageLocation' in page
 assert '保管場所' in page
+assert 'list="storageLocationOptions"' in page
+locations = re.findall(r'<datalist id="storageLocationOptions">(.*?)</datalist>', page)
+assert len(locations) == 1
+assert re.findall(r'<option value="([^"]+)">', locations[0]) == ['自宅', 'Amazon倉庫（FBA）', 'そのほかの倉庫', '店舗・事務所', '配送中']
+assert '候補にない場所を入力できます。' in page
 assert "storageLocation:col('保管場所','storageLocation')" in page
 assert "function renderTrends()" in page
 assert 'chartBuckets(period)' in page
