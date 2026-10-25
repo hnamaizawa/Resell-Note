@@ -64,3 +64,13 @@ assert 'new FileReader()' in page
 assert 'function renderTrends()' in page
 print('CSV import and configurable chart checks passed.')
 PY
+
+python - <<'PY'
+from pathlib import Path
+page = Path('index.html').read_text(encoding='utf-8')
+for check in ['id="tableEditBtn"', 'function setTableEditMode(enabled)', 'id="activeProductsBtn"', 'id="archivedProductsBtn"', 'id="archiveSelectedBtn"', 'function archiveSignature()', 'function exportProductsCsv(records,filename)', "archivedExportSignature!==archiveSignature()", "products.filter(p=>!p.archived)"]:
+    assert check in page, f'missing table/archive behavior: {check}'
+assert 'p.archived?' in page and "p.archived?'はい':'いいえ'" in page
+assert "toast('先に最新のアーカイブCSVを出力してください')" in page
+print('Inline table edit and archive checks passed.')
+PY
