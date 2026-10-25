@@ -56,11 +56,14 @@ PY
 python - <<'PY'
 from pathlib import Path
 page = Path('index.html').read_text(encoding='utf-8')
-for text in ['id="importBtn"', 'id="addChartBtn"', "document.getElementById('addChartBtn').addEventListener('click'", 'function parseCsv(text)', 'function importCsv(file)', 'function renderChartSettings()', 'function drawChart(index,config)', 'chartConfig.count', "type:{line:'折れ線グラフ',bar:'棒グラフ',pie:'円グラフ'}", "localStorage.setItem(CHART_KEY"]:
+for text in ['id="importBtn"', 'id="addChartBtn"', 'form.reset();document.getElementById(\'quantity\').value=1', 'localStorage.setItem(KEY,JSON.stringify([...products,...imported]));products.push(...imported)', 'const min=Math.min(0,...data.map(d=>d.value)),max=Math.max(0,...data.map(d=>d.value))', "document.getElementById('addChartBtn').addEventListener('click'", 'function parseCsv(text)', 'function importCsv(file)', 'function renderChartSettings()', 'function drawChart(index,config)', 'chartConfig.count', "type:{line:'折れ線グラフ',bar:'棒グラフ',pie:'円グラフ'}", "localStorage.setItem(CHART_KEY"]:
     assert text in page, f'missing CSV/chart capability: {text}'
 assert "accept=\".csv,text/csv\"" in page
 assert '既存データは残ります' in page
 assert 'new FileReader()' in page
+assert 'const importedCount=0' in page
+assert 'products.push(...imported);importedCount=imported.length' in page
+assert '正の値がないため円グラフを表示できません' in page
 assert 'function renderTrends()' in page
 print('CSV import and configurable chart checks passed.')
 PY
