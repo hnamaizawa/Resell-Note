@@ -1,25 +1,27 @@
-# せどりノート
+# Resell-Note
 
-仕入れ前の利益試算と、商品・在庫・販売実績を記録する日本語Webアプリです。初期版は単一HTMLで動作し、データは利用中のブラウザの `localStorage` に保存します。アカウント間同期や価格サイト連携はまだ行いません。
+仕入れ前の利益試算、商品・在庫・販売実績の記録を行う日本語Webアプリです。
 
-## 起動方法
+## ローカルでの実行
 
-`index.html` をブラウザで開いてください。仕入れ候補を試算し、商品名を入力して保存できます。CSV出力で登録内容をバックアップできます。
-
-## 開発ハーネス
-
-開発時の要求、ガードレール、受け入れ基準は [`harness/`](harness/) を参照してください。ブラウザ依存を最小限にするため、純粋な利益計算ルールは `harness/acceptance.md` に明記しています。変更を提出する前に `scripts/verify.sh` を実行してください。
-
-## GitHub連携
-
-この作業環境では GitHub コネクタの読み書きは利用できますが、新しいリポジトリを作成する操作とローカル作業ツリーへの clone/push 機能は見つかりませんでした。GitHub 上の新規リポジトリを作成後、次のように接続できます。
-
-```sh
-git init -b main
-git add .
-git commit -m "Initial sedori note app"
-git remote add origin https://github.com/<owner>/sedori-note.git
-git push -u origin main
+```text
+index.html をブラウザで開く
 ```
 
-実装は小さな変更単位でPRに分け、Actionsでハーネス確認後にマージしてください。
+サーバー、アカウント、データベースは不要です。商品データはこのブラウザの localStorage にだけ保存されます。他の端末・ブラウザとの同期はありません。CSV出力から手元にバックアップできます。
+
+アプリ本体は単一の `index.html` です。外部APIには接続せず、価格取得や販売サイト連携は行いません。フォントの表示にインターネット接続がない場合は、端末の代替フォントを使用します。
+
+## 機能
+
+- 仕入れ値、販売価格、手数料率、送料・梱包費から利益と利益率を試算
+- 商品を候補・在庫・販売済みとして管理
+- 商品名、カテゴリ、メモで検索し、状態で絞り込み
+- 売上、販売済み商品の実利益、在庫原価、候補件数を表示
+- 商品一覧をCSV出力
+
+表示する利益は入力値に基づく概算です。税金、返品、値下げ、保管料等は含みません。販売サイトやカテゴリごとの最新手数料率を確認して入力してください。
+
+## ハーネス開発
+
+要件とガードレールは [harness/requirements.md](harness/requirements.md)、受け入れ条件は [harness/acceptance.md](harness/acceptance.md)、変更手順は [harness/workflow.md](harness/workflow.md) を参照してください。変更前に `sh scripts/verify.sh` を実行します。GitHub Actionsでも同じチェックを実行します。
