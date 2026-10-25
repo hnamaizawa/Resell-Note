@@ -6,6 +6,9 @@ import re
 
 page = Path('index.html').read_text(encoding='utf-8')
 assert '<html lang="ja">' in page
+assert '<title>Resell-Note' in page
+assert 'fonts.googleapis.com' not in page
+assert 'https://' not in page
 assert 'function calc(p)' in page
 assert 'price-price*fee/100-shipping-cost' in page
 assert 'function escapeHtml(s)' in page
