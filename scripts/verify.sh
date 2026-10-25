@@ -56,7 +56,7 @@ PY
 python - <<'PY'
 from pathlib import Path
 page = Path('index.html').read_text(encoding='utf-8')
-for text in ['id="importBtn"', 'function parseCsv(text)', 'function importCsv(file)', 'function renderChartSettings()', 'function drawChart(index,config)', 'chartConfig.count', "type:{line:'折れ線グラフ',bar:'棒グラフ',pie:'円グラフ'}", "localStorage.setItem(CHART_KEY"]:
+for text in ['id="importBtn"', 'id="addChartBtn"', "document.getElementById('addChartBtn').addEventListener('click'", 'function parseCsv(text)', 'function importCsv(file)', 'function renderChartSettings()', 'function drawChart(index,config)', 'chartConfig.count', "type:{line:'折れ線グラフ',bar:'棒グラフ',pie:'円グラフ'}", "localStorage.setItem(CHART_KEY"]:
     assert text in page, f'missing CSV/chart capability: {text}'
 assert "accept=\".csv,text/csv\"" in page
 assert '既存データは残ります' in page
@@ -68,9 +68,11 @@ PY
 python - <<'PY'
 from pathlib import Path
 page = Path('index.html').read_text(encoding='utf-8')
-for check in ['id="tableEditBtn"', 'function setTableEditMode(enabled)', 'id="activeProductsBtn"', 'id="archivedProductsBtn"', 'id="archiveSelectedBtn"', 'function archiveSignature()', 'function exportProductsCsv(records,filename)', "archivedExportSignature!==archiveSignature()", "products.filter(p=>!p.archived)"]:
+for check in ['id="deleteProductBtn"', 'function setTableEditMode(enabled)', 'id="activeProductsBtn"', 'id="archivedProductsBtn"', 'id="archiveSelectedBtn"', 'function archiveSignature()', 'function exportProductsCsv(records,filename)', "archivedExportSignature!==archiveSignature()", "products.filter(p=>!p.archived)"]:
     assert check in page, f'missing table/archive behavior: {check}'
 assert 'p.archived?' in page and "p.archived?'はい':'いいえ'" in page
+assert 'const remainingProducts=products.filter(item=>item.id!==target.id);closeModal();' in page
+assert 'グラフは最大4つまで表示できます' in page
 assert "toast('先に最新のアーカイブCSVを出力してください')" in page
 print('Inline table edit and archive checks passed.')
 PY
