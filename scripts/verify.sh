@@ -56,7 +56,7 @@ PY
 python - <<'PY'
 from pathlib import Path
 page = Path('index.html').read_text(encoding='utf-8')
-for text in ['id="importBtn"', 'id="addChartBtn"', 'form.reset();document.getElementById(\'quantity\').value=1', 'localStorage.setItem(KEY,JSON.stringify([...products,...imported]));products.push(...imported)', 'const min=Math.min(0,...data.map(d=>d.value)),max=Math.max(0,...data.map(d=>d.value))', "document.getElementById('addChartBtn').addEventListener('click'", 'function parseCsv(text)', 'function importCsv(file)', 'function renderChartSettings()', 'function drawChart(index,config)', 'chartConfig.count', "type:{line:'折れ線グラフ',bar:'棒グラフ',pie:'円グラフ'}", "localStorage.setItem(CHART_KEY"]:
+for text in ['id="importBtn"', 'id="addChartBtn"', 'form.reset();document.getElementById(\'quantity\').value=1', 'localStorage.setItem(KEY,JSON.stringify([...products,...imported]));products.push(...imported)', 'const min=Math.min(0,...data.map(d=>d.value)),max=Math.max(0,...data.map(d=>d.value))', "onclick=\"return addDashboardChart()\"", 'function addDashboardChart()', 'function normalizeChartConfig()', 'chart-error', 'function parseCsv(text)', 'function importCsv(file)', 'function renderChartSettings()', 'function drawChart(index,config)', 'chartConfig.count', "type:{line:'折れ線グラフ',bar:'棒グラフ',pie:'円グラフ'}", "localStorage.setItem(CHART_KEY"]:
     assert text in page, f'missing CSV/chart capability: {text}'
 assert "accept=\".csv,text/csv\"" in page
 assert '既存データは残ります' in page
@@ -75,7 +75,7 @@ for check in ['id="deleteProductBtn"', 'function setTableEditMode(enabled)', 'id
     assert check in page, f'missing table/archive behavior: {check}'
 assert 'p.archived?' in page and "p.archived?'はい':'いいえ'" in page
 assert 'const remainingProducts=products.filter(item=>item.id!==target.id);closeModal();' in page
-assert 'グラフは最大4つまで表示できます' in page
+assert 'グラフは最大4つまでです。表示数を3以下にしてから追加してください。' in page
 assert "toast('先に最新のアーカイブCSVを出力してください')" in page
 print('Inline table edit and archive checks passed.')
 PY
