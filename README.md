@@ -1,27 +1,21 @@
-# せどりノート
+# Resell-Note
 
-仕入れ前の利益試算と、商品・在庫・販売実績を記録する日本語Webアプリです。初期版は単一HTMLで動作し、データは利用中のブラウザの `localStorage` に保存します。アカウント間同期や価格サイト連携は行いません。
+仕入れ前の利益試算、商品・在庫・販売実績の記録を行う日本語Webアプリです。
 
 ## 起動方法
 
-WindowsではZIPを展開し、`START_HERE.bat` をダブルクリックしてください。既定のブラウザで起動します。ZIPを使わず `index.html` を直接開いても利用できます。サーバー、インストール、アカウントは不要です。登録データは同じブラウザに保存されるため、CSV出力でバックアップしてください。
+WindowsではZIPを展開し、`START_HERE.bat` をダブルクリックします。既定のブラウザーで起動します。インストール、サーバー、アカウント、インターネット接続は不要です。`index.html` を直接開いても利用できます。
 
-アプリ本体は `index.html` だけで完結し、外部APIやインターネット上のフォントを読み込みません。完全オフラインで利用できます。配布用ZIPには起動バッチと日本語の案内を含めます。Windowsの実行ファイル(EXE)ではありません。
+## はじめての使い方
 
-## 開発ハーネス
+画面上部の「使い方」から、利益試算、仕入れ候補の保存、在庫への更新、販売後の実績更新、CSVバックアップを順に確認できます。手元に置ける詳しい説明は [使い方ガイド.txt](使い方ガイド.txt) を参照してください。
 
-開発時の要求、ガードレール、受け入れ基準は [`harness/`](harness/) を参照してください。ブラウザ依存を最小限にするため、純粋な利益計算ルールは `harness/acceptance.md` に明記しています。変更を提出する前に `scripts/verify.sh` を実行してください。
+## データとプライバシー
 
-## GitHub連携
+アプリは外部APIや外部フォントを読み込まず、完全にローカルで動作します。商品データは利用したブラウザーの `localStorage` に保存され、インターネット経由で送信されません。他の端末やブラウザーには同期されないため、画面上部のCSV出力で定期的にバックアップしてください。
 
-この作業環境では GitHub コネクタの読み書きは利用できますが、新しいリポジトリを作成する操作とローカル作業ツリーへの clone/push 機能は見つかりませんでした。GitHub 上の新規リポジトリを作成後、次のように接続できます。
+表示する利益は入力値から計算する概算です。税金、返品、値下げ、保管料等は含みません。販売先やカテゴリごとの手数料率を確認して入力してください。
 
-```sh
-git init -b main
-git add .
-git commit -m "Initial sedori note app"
-git remote add origin https://github.com/<owner>/sedori-note.git
-git push -u origin main
-```
+## ハーネス開発
 
-実装は小さな変更単位でPRに分け、Actionsでハーネス確認後にマージしてください。
+要件とガードレールは [`harness/requirements.md`](harness/requirements.md)、受け入れ条件は [`harness/acceptance.md`](harness/acceptance.md)、変更手順は [`harness/workflow.md`](harness/workflow.md) を参照してください。変更前に `sh scripts/verify.sh` を実行します。GitHub Actionsでハーネス確認とWindows向けポータブルZIP作成を行います。
