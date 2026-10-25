@@ -64,3 +64,23 @@ assert 'new FileReader()' in page
 assert 'function renderTrends()' in page
 print('CSV import and configurable chart checks passed.')
 PY
+
+python - <<'PY'
+from pathlib import Path
+page = Path('index.html').read_text(encoding='utf-8')
+for check in ['id="tableEditBtn"', 'function setTableEditMode(enabled)', 'id="activeProductsBtn"', 'id="archivedProductsBtn"', 'id="archiveSelectedBtn"', 'function archiveSignature()', 'function exportProductsCsv(records,filename)', "archivedExportSignature!==archiveSignature()", "products.filter(p=>!p.archived)"]:
+    assert check in page, f'missing table/archive behavior: {check}'
+assert 'p.archived?' in page and "p.archived?'はい':'いいえ'" in page
+assert "toast('先に最新のアーカイブCSVを出力してください')" in page
+print('Inline table edit and archive checks passed.')
+PY
+
+python - <<'PY'
+from pathlib import Path
+page = Path('index.html').read_text(encoding='utf-8')
+for check in ['id="userAvatar"', 'id="profileUserId"', "const PROFILE_KEY='resell-note-display-user-id-v1'", 'function initialFromUserId(value)', "localStorage.setItem(PROFILE_KEY,value)", 'function renderUserAvatar()']:
+    assert check in page, f'missing local user ID avatar behavior: {check}'
+assert "Array.from(String(value||'').trim())[0]?.toLocaleUpperCase('ja-JP')||'U'" in page
+assert '表示用ユーザーIDは外部へ送信されません' in Path('使い方ガイド.txt').read_text(encoding='utf-8') or '表示用ユーザーID' in Path('使い方ガイド.txt').read_text(encoding='utf-8')
+print('Local user ID avatar checks passed.')
+PY
