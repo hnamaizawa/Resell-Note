@@ -37,10 +37,18 @@ assert "Number(p.price)||0)*quantity(p)" in page
 assert "'数量','仕入れ単価'" in page
 assert '商品を編集' in page
 assert 'quantity' in page
+assert "function renderTrends()" in page
+assert "data-period=\"month\"" in page and "data-period=\"week\"" in page
+assert "id=\"soldDate\" type=\"date\"" in page
+assert "soldDate:targetStatus==='販売済み'" in page
+assert "remaining>0" in page
+assert "p.soldDate" in page
 assert Path('使い方ガイド.txt').exists()
 guide = Path('使い方ガイド.txt').read_text(encoding='utf-8')
 assert '数量' in guide
 assert '同じ展開フォルダー' in guide
+assert '販売日' in guide
+assert '週ごと' in guide
 assert '販売済み' in guide
 print('Harness static checks passed.')
 PY
