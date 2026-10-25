@@ -9,6 +9,16 @@ assert '<html lang="ja">' in page
 assert '<title>Resell-Note' in page
 assert 'fonts.googleapis.com' not in page
 assert 'https://' not in page
+assert "connect-src 'none'" in page
+assert "default-src 'none'" in page
+assert 'fetch(' not in page
+assert 'XMLHttpRequest' not in page
+assert 'WebSocket' not in page
+assert 'fonts.googleapis.com' not in page
+assert 'ローカル保存のみ' in page
+assert 'id="guideBtn"' in page
+assert '売上の推移' not in page
+assert '発送する商品' not in page
 assert 'function calc(p)' in page
 assert 'price-price*fee/100-shipping-cost' in page
 assert 'function escapeHtml(s)' in page
