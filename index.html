@@ -24,7 +24,7 @@
     <aside>
       <div class="brand"><div class="logo">↗</div><div><strong>Resell-Note</strong><small>小さく始める、商いの記録</small></div></div>
       <div class="nav-label">ワークスペース</div>
-      <nav class="nav"><button class="active" data-view="dashboard"><span class="ico">◫</span>ダッシュボード</button><button data-view="products"><span class="ico">▤</span>商品・在庫</button><button data-view="candidates"><span class="ico">⌕</span>仕入れ候補</button><button data-view="sales"><span class="ico">↗</span>売上・利益</button></nav>
+      <nav class="nav"><button class="active" data-view="dashboard"><span class="ico">◫</span>ダッシュボード</button><button data-view="products"><span class="ico">▤</span>商品・在庫</button><button data-view="candidates"><span class="ico">⌕</span>仕入れ候補</button><button data-view="sales"><span class="ico">↗</span>売上・利益</button><button data-view="settings"><span class="ico">⚙</span>設定</button></nav>
       <div class="side-bottom"><div class="tip"><b>基本の流れ</b><p>利益を試算 → 候補を保存 → 在庫に変更 → 販売後に実績を入力</p></div><div class="profile"><div class="avatar" id="userAvatar" title="設定したユーザーIDの先頭文字">U</div><div><b>マイワークスペース</b><small>ローカル保存</small></div></div></div>
     </aside>
     <main>
@@ -58,7 +58,7 @@
       searchInput:'商品名やカテゴリの一部を入力して一覧を絞り込みます。',searchInput2:'商品名やカテゴリの一部を入力して一覧を絞り込みます。',statusFilter:'表示する商品の状態を選びます。',statusFilter2:'表示する商品の状態を選びます。',profileUserId:'表示用ユーザーIDです。先頭文字を左側のアイコンに表示します。設定はこのブラウザー内に保存します。',allProducts:'商品一覧を開きます。商品行をクリックすると編集できます.',tableEditBtn:'一覧を表形式で直接編集します。既存の行クリック編集も利用できます。',tableSaveBtn:'表で変更した内容をまとめて保存します。',tableCancelBtn:'表での変更をすべて取り消します。',activeProductsBtn:'アーカイブしていない商品を表示します。',archivedProductsBtn:'過去データとしてアーカイブした商品を表示します。',archiveSelectBtn:'一覧で販売済み商品を選び、まとめてアーカイブします。',archiveSelectedBtn:'選択した販売済み商品をアーカイブへ移動します。',exportArchivedBtn:'アーカイブ商品だけをCSVに出力します。出力後、データが変わっていなければ削除できます。',deleteArchivedBtn:'最新のアーカイブCSVを出力した後に、アーカイブ商品を削除します。'
     };
     Object.entries(helpText).forEach(([id,description])=>{const element=document.getElementById(id);if(element){element.title=description;element.setAttribute('aria-description',description);const label=document.querySelector(`label[for="${id}"]`);if(label){label.title=description;label.setAttribute('aria-description',description)}}});
-    document.querySelectorAll('[data-view]').forEach(button=>{const description={dashboard:'売上合計、利益合計、在庫、仕入れ候補を確認します。',products:'登録した商品を検索し、行をクリックして編集します。',candidates:'仕入れを検討中の商品だけを表示します。',sales:'販売済みの商品と実績を表示します。'}[button.dataset.view];if(description){button.title=description;button.setAttribute('aria-description',description)}});
+    document.querySelectorAll('[data-view]').forEach(button=>{const description={dashboard:'売上合計、利益合計、在庫、仕入れ候補を確認します。',products:'登録した商品を検索し、行をクリックして編集します。',candidates:'仕入れを検討中の商品だけを表示します。',sales:'販売済みの商品と実績を表示します。',settings:'表示用ユーザーIDを設定し、ワークスペースのイニシャルを変更します。'}[button.dataset.view];if(description){button.title=description;button.setAttribute('aria-description',description)}});
     document.querySelectorAll('.stat').forEach((card,index)=>{const descriptions=['販売済みにした商品の販売価格合計です。','販売済みにした商品の利益合計です。税金などは含みません。','現在「在庫」の商品数と仕入れ金額です。','現在「候補」の商品数です。'][index];if(descriptions){card.title=descriptions;card.setAttribute('aria-description',descriptions)}});
     document.querySelectorAll('th').forEach((cell,index)=>{const descriptions=['商品名とカテゴリです。行を選ぶと編集できます。','1個あたりの仕入れ金額です。','登録した個数です。','1個あたりの販売価格です。','数量分を合計した概算利益です。','候補・在庫・販売済みの状態です。'][index];if(descriptions){cell.title=descriptions;cell.setAttribute('aria-description',descriptions)}});
     const yen=n=>'¥'+Math.round(Number(n)||0).toLocaleString('ja-JP');
