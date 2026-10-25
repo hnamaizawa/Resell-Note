@@ -1,5 +1,17 @@
 #!/usr/bin/env sh
 set -eu
+
+tmp_js=$(mktemp --suffix=.js)
+trap 'rm -f "$tmp_js"' EXIT
+python - "$tmp_js" <<'PY'
+from pathlib import Path
+import sys
+page = Path('index.html').read_text(encoding='utf-8')
+start = page.rfind('<script')
+end = page.find('</script>', start)
+Path(sys.argv[1]).write_text(page[page.find('>', start) + 1:end], encoding='utf-8')
+PY
+node --check "$tmp_js"
 python - <<'PY'
 from pathlib import Path
 import re
