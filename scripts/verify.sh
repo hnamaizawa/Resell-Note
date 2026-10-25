@@ -72,7 +72,7 @@ for check in ['id="deleteProductBtn"', 'function setTableEditMode(enabled)', 'id
     assert check in page, f'missing table/archive behavior: {check}'
 assert 'p.archived?' in page and "p.archived?'はい':'いいえ'" in page
 assert 'const remainingProducts=products.filter(item=>item.id!==target.id);closeModal();' in page
-assert '商品は最大4つまで表示できます' in page
+assert 'グラフは最大4つまで表示できます' in page
 assert "toast('先に最新のアーカイブCSVを出力してください')" in page
 print('Inline table edit and archive checks passed.')
 PY
