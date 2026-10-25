@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 set -eu
 
-tmp_js=$(mktemp)
+tmp_js=$(mktemp --suffix=.js)
 trap 'rm -f "$tmp_js"' EXIT
 python - "$tmp_js" <<'PY'
 from pathlib import Path
