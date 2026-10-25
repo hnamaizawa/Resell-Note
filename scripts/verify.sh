@@ -37,6 +37,9 @@ assert "Number(p.price)||0)*quantity(p)" in page
 assert "'数量','仕入れ単価'" in page
 assert '商品を編集' in page
 assert 'quantity' in page
+assert 'storageLocation' in page
+assert '保管場所' in page
+assert "storageLocation:col('保管場所','storageLocation')" in page
 assert "function renderTrends()" in page
 assert 'chartBuckets(period)' in page
 assert "id=\"soldDate\" type=\"date\"" in page
