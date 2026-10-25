@@ -23,6 +23,12 @@ assert 'fonts.googleapis.com' not in page
 assert 'https://' not in page
 assert "connect-src 'none'" in page
 assert "default-src 'none'" in page
+assert not re.search(r'\bon[a-z]+="', page, re.I), 'inline event handler found'
+assert not re.search(r'\$\{\s*p\.created(?![^}]*escapeHtml)', page), 'unescaped p.created template value found'
+assert page.count("escapeHtml(p.created||'')") >= 2, 'p.created output must be escaped in both rows'
+assert 'function sanitizeCsvText(value)' in page
+exporter = page.split('function exportProductsCsv(records,filename)', 1)[1].split("document.getElementById('exportArchivedBtn')", 1)[0]
+assert 'sanitizeCsvText(' in exporter, 'CSV sanitizer is not used by exportProductsCsv'
 assert 'fetch(' not in page
 assert 'XMLHttpRequest' not in page
 assert 'WebSocket' not in page
@@ -76,7 +82,7 @@ PY
 python - <<'PY'
 from pathlib import Path
 page = Path('index.html').read_text(encoding='utf-8')
-for text in ['id="importBtn"', 'id="addChartBtn"', 'form.reset();document.getElementById(\'quantity\').value=1', 'localStorage.setItem(KEY,JSON.stringify([...products,...imported]));products.push(...imported)', 'const min=Math.min(0,...data.map(d=>d.value)),max=Math.max(0,...data.map(d=>d.value))', "onclick=\"return addDashboardChart()\"", 'function addDashboardChart()', 'function normalizeChartConfig()', 'chart-error', 'function parseCsv(text)', 'function importCsv(file)', 'function renderChartSettings()', 'function drawChart(index,config)', 'chartConfig.count', "type:{line:'折れ線グラフ',bar:'棒グラフ',pie:'円グラフ'}", "localStorage.setItem(CHART_KEY"]:
+for text in ['id="importBtn"', 'id="addChartBtn"', 'form.reset();document.getElementById(\'quantity\').value=1', 'localStorage.setItem(KEY,JSON.stringify([...products,...imported]));products.push(...imported)', 'const min=Math.min(0,...data.map(d=>d.value)),max=Math.max(0,...data.map(d=>d.value))', 'function addDashboardChart()', 'function normalizeChartConfig()', 'chart-error', 'function parseCsv(text)', 'function importCsv(file)', 'function renderChartSettings()', 'function drawChart(index,config)', 'chartConfig.count', "type:{line:'折れ線グラフ',bar:'棒グラフ',pie:'円グラフ'}", "localStorage.setItem(CHART_KEY"]:
     assert text in page, f'missing CSV/chart capability: {text}'
 assert "accept=\".csv,text/csv\"" in page
 assert '既存データは残ります' in page
