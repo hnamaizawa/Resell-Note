@@ -28,8 +28,19 @@ assert 'editingProductId' in page
 assert 'localStorage.setItem(KEY' in page
 assert "type=\"number\" min=\"0\" max=\"100\"" in page
 assert "new Blob(['\\ufeff'+csv]" in page
-assert 'Math.round(c.profit)' in page
+assert 'Math.round(c.profit*qty)' in page
+assert "const KEY='sedori-note-products-v1'" in page
+assert 'function quantity(p){return Math.max(1,Math.floor(Number(p.quantity)||1))}' in page
+assert "id=\"quantity\" type=\"number\" min=\"1\" step=\"1\"" in page
+assert "calc(p).profit*quantity(p)" in page
+assert "Number(p.price)||0)*quantity(p)" in page
+assert "'数量','仕入れ単価'" in page
+assert '商品を編集' in page
+assert 'quantity' in page
 assert Path('使い方ガイド.txt').exists()
-assert '販売済み' in Path('使い方ガイド.txt').read_text(encoding='utf-8')
+guide = Path('使い方ガイド.txt').read_text(encoding='utf-8')
+assert '数量' in guide
+assert '同じ展開フォルダー' in guide
+assert '販売済み' in guide
 print('Harness static checks passed.')
 PY
