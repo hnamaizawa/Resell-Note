@@ -38,7 +38,7 @@ assert "'数量','仕入れ単価'" in page
 assert '商品を編集' in page
 assert 'quantity' in page
 assert "function renderTrends()" in page
-assert "data-period=\"month\"" in page and "data-period=\"week\"" in page
+assert 'chartBuckets(period)' in page
 assert "id=\"soldDate\" type=\"date\"" in page
 assert "soldDate:targetStatus==='販売済み'" in page
 assert "remaining>0" in page
@@ -48,7 +48,19 @@ guide = Path('使い方ガイド.txt').read_text(encoding='utf-8')
 assert '数量' in guide
 assert '同じ展開フォルダー' in guide
 assert '販売日' in guide
-assert '週ごと' in guide
+assert 'ダッシュボードグラフ' in guide
 assert '販売済み' in guide
 print('Harness static checks passed.')
+PY
+
+python - <<'PY'
+from pathlib import Path
+page = Path('index.html').read_text(encoding='utf-8')
+for text in ['id="importBtn"', 'function parseCsv(text)', 'function importCsv(file)', 'function renderChartSettings()', 'function drawChart(index,config)', 'chartConfig.count', "type:{line:'折れ線グラフ',bar:'棒グラフ',pie:'円グラフ'}", "localStorage.setItem(CHART_KEY"]:
+    assert text in page, f'missing CSV/chart capability: {text}'
+assert "accept=\".csv,text/csv\"" in page
+assert '既存データは残ります' in page
+assert 'new FileReader()' in page
+assert 'function renderTrends()' in page
+print('CSV import and configurable chart checks passed.')
 PY
