@@ -33,9 +33,12 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          $tag = "v1.0.0-build.${{ github.run_number }}"
+          $build = [int]"${{ github.run_number }}"
+          $buildLabel = $build.ToString("D6")
+          $tag = "v1.0.1-build.r$buildLabel"
           gh release create $tag dist/Resell-Note-Windows-Portable.zip `
             --repo $env:GITHUB_REPOSITORY `
             --target $env:GITHUB_SHA `
-            --title "Resell-Note v1.0.0 build.${{ github.run_number }}" `
-            --notes "Windows向けオフライン版です。ZIPを展開して START_HERE.bat をダブルクリックしてください。商品データは利用するブラウザー内に保存され、GitHubを含むインターネットへ送信されません。"
+            --title "Resell-Note v1.0.1 build.$build" `
+            --latest `
+            --notes "最新のWindows向けオフライン版です。ZIPを展開して START_HERE.bat をダブルクリックしてください。商品データは利用するブラウザー内に保存され、GitHubを含むインターネットへ送信されません。"
